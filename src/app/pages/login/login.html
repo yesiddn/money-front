@@ -1,0 +1,51 @@
+<section class="flex items-center h-dvh p-12">
+  <div class="flex w-1/2  flex-col mx-auto px-8 py-12 gap-6 rounded-3xl border border-gray-300 shadow-lg">
+    <span></span>
+    <h1 class="font-bold text-2xl">Bienvenido a Money</h1>
+    <p>Por favor, inicie sesión o regístrese para continuar.</p>
+
+    <p-toast />
+    <div class="card flex justify-center">
+      <form
+        [formGroup]="userLoginForm"
+        (ngSubmit)="onSubmit()"
+        class="flex flex-col gap-4 w-full"
+      >
+        <div class="flex flex-col gap-1">
+          <input
+            pInputText
+            type="text"
+            id="username"
+            placeholder="Username"
+            formControlName="username"
+            [invalid]="isInvalid('username')"
+          />
+          @if (isInvalid('username')) {
+          <p-message severity="error" size="small" variant="simple"
+            >Username is required.</p-message
+          >
+          }
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <input
+            pInputText
+            type="password"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+            [invalid]="isInvalid('password')"
+          />
+          @if (isInvalid('password')) { @if (userLoginForm.get('password')?.errors?.['required']) {
+          <p-message severity="error" size="small" variant="simple">Contraseña requerida.</p-message>
+          } @if (userLoginForm.get('password')?.errors?.['password']) {
+          <p-message severity="error" size="small" variant="simple"
+            >Por favor, introduzca una contraseña válida.</p-message
+          >
+          } }
+        </div>
+        <button pButton severity="primary" type="submit"><span pButtonLabel>Submit</span></button>
+      </form>
+    </div>
+  </div>
+</section>
