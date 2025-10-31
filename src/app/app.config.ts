@@ -17,17 +17,17 @@ const MoneyPreset = definePreset(Lara, {
       light: {
         semantic: {
           primary: {
-            50: '#f5f3ff',
-            100: '#ede9fe',
-            200: '#ddd6fe',
-            300: '#c4b5fd',
-            400: '#a78bfa',
-            500: '#8b5cf6',
-            600: '#7c3aed',
-            700: '#6d28d9',
-            800: '#5b21b6',
-            900: '#4c1d95',
-            950: '#2e1065',
+            50: '#f1f3fe',
+            100: '#e5e9fd',
+            200: '#d1d8fc',
+            300: '#b5c0fa',
+            400: '#93a3f9',
+            500: '#607AFB', // Tu color base
+            600: '#4b65f2',
+            700: '#3c52d9',
+            800: '#3346b3',
+            900: '#2d3c94',
+            950: '#1e2865',
           },
         },
       },
