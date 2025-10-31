@@ -7,9 +7,9 @@ import { environment } from '../../environments/environment';
 })
 export class Auth {
   http = inject(HttpClient);
-   apiURL = environment.API_URL;
+  apiURL = environment.API_URL;
 
   login(username: string, password: string) {
-    return this.http.post(`${this.apiURL}/api/login`, { username, password });
+    return this.http.post(`${this.apiURL}/api/token/`, { username, password });
   }
 }
