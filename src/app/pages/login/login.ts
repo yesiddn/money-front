@@ -7,11 +7,12 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, MessageModule],
+  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, MessageModule, RouterLink],
   templateUrl: './login.html',
   providers: [MessageService]
 })
@@ -19,6 +20,7 @@ export class Login {
   private fb = inject(FormBuilder);
   messageService = inject(MessageService);
   authService = inject(Auth);
+  router = inject(Router);
 
   userLoginForm: FormGroup;
 
@@ -37,7 +39,7 @@ export class Login {
 
     this.authService.login(this.userLoginForm.value.username, this.userLoginForm.value.password).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error('Login failed:', error);
