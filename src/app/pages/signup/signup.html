@@ -1,0 +1,131 @@
+<div class="flex justify-evenly xl:justify-center">
+  <section class="hidden sticky flex-col justify-between w-1/2 h-dvh top-0 p-12 max-w-xl lg:flex">
+    <div class="flex items-center gap-2 text-2xl font-bold">
+      <span class="hidden lg:inline-block"><img src="/icons/bank.svg" alt="Wallet icon" class="w-12 h-12"></span>
+      <span>Money</span>
+    </div>
+    <div>
+      <h2 class="mb-4 text-4xl font-bold">Toma el control de tus finanzas</h2>
+      <p class="text-lg text-gray-600">Tu compañero financiero para un futuro más claro.</p>
+    </div>
+    <footer>
+      <p>Hecho con 🩵 por <a href="https://github.com/yesiddn" class="decoration-wavy hover:underline">@yesiddn</a></p>
+    </footer>
+  </section>
+
+  <section class="flex flex-col justify-center items-center m-auto p-12 max-w-xl md:w-2/3 lg:w-1/2 lg:m-0">
+    <p-toast />
+
+    <div class="flex flex-col items-center mb-8 text-center">
+      <span class="inline-block mb-6 lg:hidden"><img src="/icons/bank.svg" alt="Wallet icon" class="w-12 h-12"></span>
+      <h1 class="mb-4 font-bold text-3xl lg:text-4xl">Crea tu cuenta</h1>
+      <p>Toma el control de tus finanzas.</p>
+    </div>
+
+    <form [formGroup]="signupFormGroup" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full">
+      <!-- username -->
+      <div class="flex flex-col gap-1">
+        <label for="username" class="text-sm font-medium text-zinc-700">Username</label>
+        <input pInputText type="text" id="username" placeholder="Username" formControlName="username"
+          [invalid]="isInvalid('username')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('username')) {
+              Username es requerido.
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <!-- first name -->
+      <div class="flex flex-col gap-1">
+        <label for="firstName" class="text-sm font-medium text-zinc-700">Nombres</label>
+        <input pInputText type="text" id="firstName" placeholder="Nombres" formControlName="firstName"
+          [invalid]="isInvalid('firstName')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('firstName')) {
+            Los nombres son requeridos.
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <!-- last name -->
+      <div class="flex flex-col gap-1">
+        <label for="lastName" class="text-sm font-medium text-zinc-700">Apellidos</label>
+        <input pInputText type="text" id="lastName" placeholder="Apellidos" formControlName="lastName"
+          [invalid]="isInvalid('lastName')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('lastName')) {
+            Los apellidos son requeridos.
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <!-- email -->
+      <div class="flex flex-col gap-1">
+        <label for="email" class="text-sm font-medium text-zinc-700">Correo electrónico</label>
+        <input pInputText type="email" id="email" placeholder="Correo electrónico" formControlName="email"
+          [invalid]="isInvalid('email')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('email')) {
+            @if (signupFormGroup.get('email')?.errors?.['required']) {
+            El correo electrónico es requerido.
+            }
+            @if (signupFormGroup.get('email')?.errors?.['email']) {
+            Por favor, introduce un correo electrónico válido.
+            }
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <!-- password -->
+      <div class="flex flex-col gap-1">
+        <label for="password" class="text-sm font-medium text-zinc-700">Contraseña</label>
+        <p-password id="password" placeholder="Password" formControlName="password" [invalid]="isInvalid('password')"
+          [toggleMask]="true" [feedback]="false" autocomplete="off" required fluid></p-password>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('password')) {
+            @if (signupFormGroup.get('password')?.errors?.['required']) {
+            Contraseña requerida.
+            }
+            @if (signupFormGroup.get('password')?.errors?.['minlength']) {
+            Por favor, introduzca una contraseña válida.
+            }
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <!-- confirm password -->
+      <div class="flex flex-col gap-1">
+        <label for="confirmPassword" class="text-sm font-medium text-zinc-700">Confirmar Contraseña</label>
+        <p-password id="confirmPassword" placeholder="Confirmar Password" formControlName="confirmPassword"
+          [invalid]="isInvalid('confirmPassword')" [toggleMask]="true" [feedback]="false" autocomplete="off" required
+          fluid></p-password>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('confirmPassword')) {
+            Confirma tu contraseña.
+            }
+            @if (signupFormGroup.get('confirmPassword')?.value !== signupFormGroup.get('password')?.value &&
+            formSubmitted) {
+            Las contraseñas no coinciden.
+            }
+          </span>
+        </p-message>
+      </div>
+
+      <button pButton severity="primary" type="submit"><span pButtonLabel>Crear cuenta</span></button>
+    </form>
+
+    <p class="m-4">¿Ya tienes una cuenta? <a routerLink="/login"
+        class="text-blue-600 cursor-pointer decoration-wavy hover:underline">Inicia sesión</a></p>
+  </section>
+</div>
