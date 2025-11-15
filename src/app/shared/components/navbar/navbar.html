@@ -1,0 +1,71 @@
+<nav
+  class="fixed bottom-0 left-0 w-full h-16 flex items-center bg-white/90 backdrop-blur-sm border-t border-gray-200 z-40 md:static md:h-12 md:bg-transparent md:border-0"
+  id="navbar" aria-label="Main navigation"
+>
+  <ul class="flex w-full h-full justify-around items-center gap-12 md:gap-6">
+    <li
+      class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:w-full md:h-full md:translate-x-0 md:translate-y-0"
+    >
+      <a
+        class="flex justify-center items-center w-12 h-12 gap-4 rounded-full bg-primary-500 cursor-pointer text-white font-bold hover:bg-primary-300 hover:text-black md:w-full md:h-full md:px-4"
+        routerLink="/" title="Agregar" aria-label="Agregar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="m12.75 7.75h-10m5-5v10"
+          />
+        </svg>
+
+        <span class="hidden md:inline-block">Agregar</span>
+      </a>
+    </li>
+    <li
+      class="flex justify-center items-center w-full h-full cursor-pointer"
+    >
+      <a
+        class="flex justify-center items-center w-full h-full gap-4 rounded-full cursor-pointer font-bold hover:bg-primary-300 hover:text-black md:px-4"
+        [class.text-primary-500]="menuSelected === 'dashboard'"
+        routerLink="/" title="Dashboard"
+        aria-label="Dashboard"
+      >
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z"
+            />
+          </svg>
+        </span>
+        <span class="hidden md:inline-block" [class.inline-block]="menuSelected === 'dashboard'"
+          >Dashboard</span
+        >
+      </a>
+    </li>
+    <li
+      class="flex justify-center items-center w-full h-full cursor-pointer"
+    >
+      <a
+        class="flex justify-center items-center w-full h-full gap-4 rounded-full cursor-pointer font-bold hover:bg-primary-300 hover:text-black md:px-4"
+        [class.text-primary-500]="menuSelected === 'accounts'"
+        routerLink="/accounts" title="Cuentas" aria-label="Cuentas"
+      >
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M5 19V5zm0 2q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v2.5h-2V5H5v14h14v-2.5h2V19q0 .825-.587 1.413T19 21zm8-4q-.825 0-1.412-.587T11 15V9q0-.825.588-1.412T13 7h7q.825 0 1.413.588T22 9v6q0 .825-.587 1.413T20 17zm7-2V9h-7v6zm-4-1.5q.625 0 1.063-.437T17.5 12t-.437-1.062T16 10.5t-1.062.438T14.5 12t.438 1.063T16 13.5"
+            />
+          </svg>
+        </span>
+        <span class="hidden md:inline-block" [class.inline-block]="menuSelected === 'accounts'"
+          >Cuentas</span
+        >
+      </a>
+    </li>
+  </ul>
+</nav>
