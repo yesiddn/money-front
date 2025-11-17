@@ -9,7 +9,8 @@ import { providePrimeNG } from 'primeng/config';
 import Lara from '@primeuix/themes/lara';
 import { definePreset } from '@primeuix/themes';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { tokenInterceptor } from './interceptors/token-interceptor';
 
 const MoneyPreset = definePreset(Lara, {
   semantic: {
@@ -57,7 +58,9 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([tokenInterceptor]),
+    ),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
