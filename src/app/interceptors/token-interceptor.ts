@@ -23,11 +23,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (isValidAccessToken) {
     return addAccessToken(req, next, tokenService);
-  } else {
-    return updateTokens(req, next, tokenService);
   }
 
-  return next(req);
+  return updateTokens(req, next, tokenService);
 };
 
 function addAccessToken(req: HttpRequest<unknown>, next: HttpHandlerFn, tokenService: Token) {
@@ -47,7 +45,6 @@ function addAccessToken(req: HttpRequest<unknown>, next: HttpHandlerFn, tokenSer
 function updateTokens(req: HttpRequest<unknown>, next: HttpHandlerFn, tokenService: Token) {
   const refreshToken = tokenService.getRefreshToken();
 
-  // Si hay refresh token intentamos refrescar primero
   if (refreshToken) {
     const authService = inject(Auth);
     return authService.refreshTokenShared().pipe(
