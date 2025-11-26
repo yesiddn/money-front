@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Signup } from './auth/signup/signup';
-import { Records } from './records/records';
+import { Records } from './transactions/records/records';
 import { Layout } from './shared/components/layout/layout';
 import { authGuard } from './guards/auth-guard';
 import { redirectGuard } from './guards/redirect-guard';

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RecordFilters } from "../modules/components/record-filters/record-filters";
+import { RecordFilters } from "../../transactions/record-filters/record-filters";
 import { FinancialTransactions } from './financial-transactions';
 import { Record } from './record.intereface';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
