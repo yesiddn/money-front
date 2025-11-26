@@ -6,8 +6,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../auth';
 
 @Component({
   selector: 'app-login',

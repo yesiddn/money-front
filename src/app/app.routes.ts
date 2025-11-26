@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { Signup } from './pages/signup/signup';
-import { Records } from './pages/records/records';
+import { Signup } from './auth/signup/signup';
+import { Records } from './records/records';
 import { Layout } from './shared/components/layout/layout';
 import { authGuard } from './guards/auth-guard';
 import { redirectGuard } from './guards/redirect-guard';
+import { Login } from './auth/login/login';
 
 export const routes: Routes = [
   {

@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
-import { Auth } from '../../services/auth';
+import { Auth } from '../auth';
 import { Router, RouterLink } from '@angular/router';
 import { SignupErrorResponse } from '../../models/auth.model';
 

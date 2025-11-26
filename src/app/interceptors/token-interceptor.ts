@@ -1,7 +1,7 @@
 import { HttpContext, HttpContextToken, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Token } from '../services/token';
-import { Auth } from '../services/auth';
+import { Token } from '../auth/token';
+import { Auth } from '../auth/auth';
 import { switchMap, catchError } from 'rxjs/operators';
 
 // Se define el token de contexto

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Token } from '../services/token';
-import { Auth } from '../services/auth';
+import { Token } from '../auth/token';
+import { Auth } from '../auth/auth';
 import { map } from 'rxjs/internal/operators/map';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs';
