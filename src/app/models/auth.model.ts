@@ -3,6 +3,10 @@ export interface ResponseLogin {
   refresh: string;
 }
 
+export interface ResponseRefresh {
+  access: string;
+}
+
 export interface SignupRequest {
   username: string;
   first_name: string;
