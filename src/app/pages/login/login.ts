@@ -9,12 +9,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Auth } from '../../services/auth';
 import { Router, RouterLink } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, ToastModule, MessageModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    ToastModule,
+    MessageModule,
+    RouterLink,
+  ],
   templateUrl: './login.html',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class Login {
   private fb = inject(FormBuilder);
@@ -37,22 +44,36 @@ export class Login {
     this.formSubmitted = true;
     if (!this.userLoginForm.valid) return;
 
-    this.authService.login(this.userLoginForm.value.username, this.userLoginForm.value.password).subscribe({
-      next: (response) => {
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-      }
-    });
+    this.authService
+      .login(this.userLoginForm.value.username, this.userLoginForm.value.password)
+      .subscribe({
+        next: (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: '¡Bienvenido de nuevo!',
+          });
+          this.userLoginForm.reset();
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error de inicio de sesión',
+              detail: 'Nombre de usuario o contraseña inválidos.',
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Ocurrió un error. Por favor, inténtalo de nuevo más tarde.',
+            });
+          }
+          console.error('Login failed:', error);
+        }
+      });
 
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Form Submitted',
-      life: 3000,
-    });
-    this.userLoginForm.reset();
     this.formSubmitted = false;
   }
 
