@@ -66,4 +66,9 @@ export class Token {
 
     return false;
   }
+
+  clearTokens(): void {
+    this.removeAccessToken();
+    this.removeRefreshToken();
+  }
 }
