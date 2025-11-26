@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { tap, Observable } from 'rxjs';
 import { finalize, shareReplay, map } from 'rxjs/operators';
 import { Token } from './token';
-import { ResponseLogin, SignupRequest } from '../models/auth.model';
+import { ResponseLogin, ResponseRefresh, SignupRequest } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,12 +40,11 @@ export class Auth {
   refreshToken() {
     const refreshToken = this.tokenService.getRefreshToken();
 
-    return this.http.post<ResponseLogin>(`${this.apiURL}/api/token/refresh/`, { refresh: refreshToken })
+    return this.http.post<ResponseRefresh>(`${this.apiURL}/api/token/refresh/`, { refresh: refreshToken })
       .pipe(
         tap({
           next: (response) => {
             this.tokenService.saveAccessToken(response.access);
-            this.tokenService.saveRefreshToken(response.refresh);
           },
           error: (error) => {
             console.error('Token refresh failed:', error);
