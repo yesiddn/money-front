@@ -32,6 +32,8 @@ jobs:
           tags: |
             yesiddn/money-front:latest
           platforms: linux/amd64
-      
-      # (Opcional) Paso extra para avisarle a Dokploy que hay una nueva imagen
-      # Si quieres despliegue 100% automático, aquí podrías llamar al webhook de Dokploy
+
+      # Avisar a Dokploy
+      - name: Deploy to Dokploy
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_WEBHOOK_URL }}"
