@@ -1,40 +1,19 @@
-# Etapa 1: Build (Compilación)
+# Etapa 1: Build
 FROM node:22-alpine AS build
-
-# Habilitar pnpm mediante corepack (la forma moderna y recomendada)
+# ... (tu configuración de pnpm igual que antes) ...
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
-
 WORKDIR /app
-
-# Copiamos los archivos de definición de dependencias
 COPY package.json pnpm-lock.yaml ./
-
-# Instalar dependencias usando pnpm
-# --frozen-lockfile asegura que se instalen las versiones exactas del lockfile
 RUN pnpm install --frozen-lockfile
-
-# Copiar el resto del código
 COPY . .
-
-# Construir la aplicación
 RUN pnpm run build
 
-# Etapa 2: Producción (Nginx)
+# Etapa 2: Debug (Temporal)
 FROM nginx:alpine
+# Copiamos todo el dist para ver qué hay
+COPY --from=build /app/dist /tmp/debug_dist
 
-COPY --from=build /app/dist/money-front /usr/share/nginx/html
-
-# Configuración Nginx para SPA
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Listamos los archivos en el log del contenedor al arrancar
+CMD ["sh", "-c", "ls -R /tmp/debug_dist && nginx -g 'daemon off;'"]
