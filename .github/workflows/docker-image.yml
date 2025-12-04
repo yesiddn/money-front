@@ -1,0 +1,37 @@
+name: Build Docker images
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso extra recomendado para compatibilidad de arquitecturas
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # CAMBIO CLAVE: Reemplaza 'tu_usuario' por tu usuario real de DockerHub
+          tags: |
+            yesiddn/money-front:latest
+          platforms: linux/amd64
+      
+      # (Opcional) Paso extra para avisarle a Dokploy que hay una nueva imagen
+      # Si quieres despliegue 100% automático, aquí podrías llamar al webhook de Dokploy
