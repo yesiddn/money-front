@@ -24,7 +24,7 @@ export interface Record {
   category: Category;
   paymentType: 'cash' | 'transfer' | 'card';
   currency: string;
-  date_time: string;
+  date_time: Date;
   created_at: string;
   updated_at: string;
 }
