@@ -2,12 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecordFilters } from "../../transactions/record-filters/record-filters";
 import { FinancialTransactions } from './financial-transactions';
 import { Record } from './record.intereface';
-import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-records',
-  imports: [RecordFilters, CurrencyPipe, DecimalPipe],
+  imports: [RecordFilters, DecimalPipe],
   templateUrl: './records.html',
 })
 export class Records implements OnInit {

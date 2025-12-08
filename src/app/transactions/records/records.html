@@ -81,16 +81,16 @@
         <p class="text-lg font-bold"
           [class]="{'text-red-600': transaction.typeRecord == 'expense' || transaction.typeRecord == 'investment', 'text-green-600': transaction.typeRecord == 'income', 'text-primary-600': transaction.typeRecord == 'transfer'}">
           @if (transaction.typeRecord === 'income') {
-          + {{ transaction.amount | currency:transaction.currency:'symbol':'1.2-2' }}
+          + {{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}
           }
           @if (transaction.typeRecord === 'expense') {
-          -{{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}
+          - {{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}
           }
           @if (transaction.typeRecord === 'transfer') {
-          {{ transaction.amount | currency:transaction.currency:'symbol':'1.2-2' }}
+          {{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}
           }
           @if (transaction.typeRecord === 'investment') {
-          - {{ transaction.amount | currency:transaction.currency:'symbol':'1.2-2' }}
+          - {{ transaction.amount | number:'1.2-2' }} {{ transaction.currency }}
           }
         </p>
       </div>
