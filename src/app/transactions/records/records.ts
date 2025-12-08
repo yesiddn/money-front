@@ -2,12 +2,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecordFilters } from "../../transactions/record-filters/record-filters";
 import { FinancialTransactions } from './financial-transactions';
 import { Record } from '../../models/record.intereface';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { TransactionIcon } from '../transaction-icon/transaction-icon';
 
 @Component({
   selector: 'app-records',
-  imports: [RecordFilters, DecimalPipe],
+  imports: [RecordFilters, DecimalPipe, DatePipe, TransactionIcon],
   templateUrl: './records.html',
 })
 export class Records implements OnInit {
@@ -32,19 +33,5 @@ export class Records implements OnInit {
           });
         }
       });
-  }
-
-  getSpanClasses(typeRecord: 'expense' | 'income' | 'transfer' | 'investment'): string {
-    switch (typeRecord) {
-      case 'expense':
-      case 'investment':
-        return 'text-red-600 bg-red-500/20';
-      case 'income':
-        return 'text-green-600 bg-green-500/20';
-      case 'transfer':
-        return 'text-primary-600 bg-primary-500/20';
-      default:
-        return '';
-    }
   }
 }
