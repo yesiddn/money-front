@@ -47,9 +47,16 @@
           <!-- details -->
           <div class="w-full">
             <h2 class="text-xl font-bold">{{ transaction.title }}</h2>
-            <p class="w-full md:max-w-1/2 truncate text-gray-500">
-              {{ transaction.description }}
-            </p>
+            @if (transaction.description === '') {
+              <p class="w-full text-gray-500 md:max-w-1/2 md:hidden">
+                {{ transaction.date_time | date:'short' }}
+              </p>
+            }
+            @else {
+              <p class="w-full md:max-w-1/2 truncate text-gray-500">
+                {{ transaction.description }}
+              </p>
+            }
           </div>
         </div>
       </div>
