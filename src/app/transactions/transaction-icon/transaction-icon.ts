@@ -7,6 +7,7 @@ import { Component, input } from '@angular/core';
 })
 export class TransactionIcon {
   typeRecord = input<'expense' | 'income' | 'transfer' | 'investment'>('expense');
+  size = input<string>('24px');
 
   getSpanClasses(typeRecord: 'expense' | 'income' | 'transfer' | 'investment'): string {
     switch (typeRecord) {
