@@ -14,6 +14,12 @@ export interface Category {
   description: string;
 }
 
+export interface RecordsResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Record[];
+}
 export interface Record {
   id: number;
   title: string;
