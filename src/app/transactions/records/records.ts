@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecordFilters } from "../../transactions/record-filters/record-filters";
-import { FinancialTransactions } from './financial-transactions';
+import { FinancialTransactions } from '../financial-transactions';
 import { Record, RecordsResponse } from '../../models/record.intereface';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
