@@ -34,3 +34,10 @@ export interface Record {
   created_at: string;
   updated_at: string;
 }
+
+export interface TransactionFilters {
+  searchTerm?: string;
+  typeRecord?: 'expense' | 'income' | 'transfer' | '';
+  dateFrom?: string;
+  dateTo?: string;
+}
