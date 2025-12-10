@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { checkToken } from '../../interceptors/token-interceptor';
-import { Record, RecordsResponse } from '../../models/record.intereface';
+import { environment } from '@env/environment';
+import { checkToken } from '@app/interceptors/token-interceptor';
+import { RecordsResponse, TransactionFilters } from '@app/models/record.intereface';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,27 @@ export class FinancialTransactions {
   http = inject(HttpClient);
   apiURL = environment.API_URL;
 
-  getRecords(limit: number, offset: number) {
-    return this.http.get<RecordsResponse>(`${this.apiURL}/api/records/?limit=${limit}&offset=${offset}`, { context: checkToken() }).pipe(
+  getRecords(limit: number, offset: number, filters?: TransactionFilters) {
+    const filterParams = new URLSearchParams();
+    if (filters) {
+      if (filters.searchTerm) {
+        filterParams.append('search', filters.searchTerm);
+      }
+      if (filters.typeRecord) {
+        filterParams.append('typeRecord', filters.typeRecord);
+      }
+      if (filters.dateFrom && filters.dateTo) {
+        filterParams.append('date_from', filters.dateFrom);
+        filterParams.append('date_to', filters.dateTo);
+      }
+    }
+
+    filterParams.append('limit', limit.toString());
+    filterParams.append('offset', offset.toString());
+
+    const urlWithFilters = `${this.apiURL}/api/records/?${filterParams.toString()}`;
+
+    return this.http.get<RecordsResponse>(urlWithFilters, { context: checkToken() }).pipe(
       map((data: RecordsResponse) => {
         let response: RecordsResponse = data;
 
