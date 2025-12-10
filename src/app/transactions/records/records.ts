@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RecordFilters } from "../../transactions/record-filters/record-filters";
 import { FinancialTransactions } from '../financial-transactions';
-import { Record, RecordsResponse } from '../../models/record.intereface';
+import { Record, RecordsResponse, TransactionFilters } from '../../models/record.intereface';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { TransactionIcon } from '../transaction-icon/transaction-icon';
@@ -20,8 +20,11 @@ export class Records implements OnInit {
   transactions = signal<Record[]>([]);
 
   ngOnInit() {
-    // this.messageService.add({severity:'error', summary: 'Error', detail: 'No se pudieron cargar las transacciones.'});
-    this.financialTransactions.getRecords(this.limit, this.offset)
+    this.getTransactionIcon();
+  }
+
+  getTransactionIcon(filters?: TransactionFilters) {
+    this.financialTransactions.getRecords(this.limit, this.offset, filters)
       .subscribe({
         next: (data: RecordsResponse) => {
           this.transactions.set(data.results);
@@ -35,5 +38,9 @@ export class Records implements OnInit {
           });
         }
       });
+  }
+
+  applyFilters(filters: TransactionFilters) {
+    this.getTransactionIcon(filters);
   }
 }

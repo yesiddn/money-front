@@ -5,7 +5,7 @@
 
   <!-- tools -->
   <div>
-    <app-record-filters></app-record-filters>
+    <app-record-filters (filtersChange)="applyFilters($event)"></app-record-filters>
   </div>
 
   <div class="mt-8">
