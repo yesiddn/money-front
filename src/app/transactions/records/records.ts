@@ -5,10 +5,11 @@ import { Record, RecordsResponse, TransactionFilters } from '../../models/record
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { TransactionIcon } from '../transaction-icon/transaction-icon';
+import { CreateRecords } from "../manage-records/create-records/create-records";
 
 @Component({
   selector: 'app-records',
-  imports: [RecordFilters, DecimalPipe, DatePipe, TransactionIcon],
+  imports: [RecordFilters, DecimalPipe, DatePipe, TransactionIcon, CreateRecords],
   templateUrl: './records.html',
 })
 export class Records implements OnInit {
@@ -38,6 +39,10 @@ export class Records implements OnInit {
           });
         }
       });
+  }
+
+  handleNewRecord(newRecord: Record) {
+    this.transactions.update(records => [newRecord, ...records]);
   }
 
   applyFilters(filters: TransactionFilters) {
