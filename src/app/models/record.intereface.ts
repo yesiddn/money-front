@@ -1,3 +1,5 @@
+import { Category } from "./category.interface";
+
 export interface Account {
   id: number;
   name: string;
@@ -6,12 +8,6 @@ export interface Account {
   created_at: string;
   updated_at: string;
   user: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  description: string;
 }
 
 export interface RecordsResponse {
@@ -33,6 +29,18 @@ export interface Record {
   date_time: Date;
   created_at: string;
   updated_at: string;
+}
+
+export interface CreateRecord {
+  title: string;
+  description?: string;
+  amount: string;
+  account_id: number;
+  typeRecord: 'expense' | 'income' | 'transfer' | 'investment';
+  category_id?: number;
+  paymentType: 'cash' | 'transfer' | 'card';
+  currency: string;
+  date_time?: string;
 }
 
 export interface TransactionFilters {
