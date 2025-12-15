@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
+import { ManageRecordsDialogs } from '@app/transactions/manage-records/manage-records-dialogs';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +8,11 @@ import { RouterLink } from "@angular/router";
   templateUrl: './navbar.html',
 })
 export class Navbar {
+  private manageRecordsDialogs = inject(ManageRecordsDialogs);
+
   menuSelected = 'dashboard';
+
+  showCreateRecordDialog() {
+    this.manageRecordsDialogs.showCreateRecordDialog();
+  }
 }

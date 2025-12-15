@@ -6,9 +6,9 @@
     <li
       class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:w-full md:h-full md:translate-x-0 md:translate-y-0"
     >
-      <a
+      <button (click)="showCreateRecordDialog()"
         class="flex justify-center items-center w-12 h-12 gap-4 rounded-full bg-primary-500 cursor-pointer text-white font-bold hover:bg-primary-300 hover:text-black md:w-full md:h-full md:px-4"
-        routerLink="/" title="Agregar" aria-label="Agregar"
+        title="Agregar" aria-label="Agregar"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16">
           <path
@@ -22,7 +22,7 @@
         </svg>
 
         <span class="hidden md:inline-block">Agregar</span>
-      </a>
+      </button>
     </li>
     <li
       class="flex justify-center items-center w-full h-full cursor-pointer"
