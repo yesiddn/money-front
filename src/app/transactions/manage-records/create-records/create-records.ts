@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, output, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ManageRecordsDialogs } from '@transactions/manage-records/manage-records-dialogs';
@@ -55,13 +55,6 @@ export class CreateRecords implements OnInit {
     { label: 'Transferencia', value: 'transfer' },
     { label: 'Tarjeta', value: 'card' },
   ];
-  initFormValues = {
-    ammount: 0,
-    account: this.accounts().length > 0 ? this.accounts()[0].id : '',
-    typeRecord: this.typeRecords[0].value,
-    paymentType: this.paymentTypes[0].value,
-    currency: this.accounts().length > 0 ? this.accounts()[0].currency : '',
-  };
 
   constructor() {
     effect(() => {
@@ -72,6 +65,20 @@ export class CreateRecords implements OnInit {
   ngOnInit() {
     this.initForm();
     this.initializeUserFinancialData();
+  }
+
+  private initFormValues() {
+    return {
+      title: '',
+      description: '',
+      amount: null,
+      account: this.accounts().length > 0 ? this.accounts()[0].id : '',
+      typeRecord: this.typeRecords[0].value,
+      category: '',
+      paymentType: this.paymentTypes[0].value,
+      currency: this.accounts().length > 0 ? this.accounts()[0].currency : '',
+      date: '',
+    };
   }
 
   initializeUserFinancialData() {
@@ -109,7 +116,7 @@ export class CreateRecords implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: [''],
-      amount: ['', [Validators.required, Validators.min(0.01)]],
+      amount: [null, [Validators.required, Validators.min(0.01)]],
       account: ['', Validators.required],
       typeRecord: [this.typeRecords[0].value, Validators.required],
       category: [''],
@@ -150,14 +157,13 @@ export class CreateRecords implements OnInit {
       next: (newRecord) => {
         this.newRecord.emit(newRecord);
         this.hideDialog();
+        this.form.reset(this.initFormValues());
+        this.formSubmitted = false;
       },
       error: (error) => {
         console.error('Error creating record:', error);
       },
     });
-
-    this.form.reset(this.initFormValues);
-    this.formSubmitted = false;
   }
 
   isInvalid(controlName: string) {
@@ -166,7 +172,7 @@ export class CreateRecords implements OnInit {
   }
 
   hideDialog() {
-    this.form.reset(this.initFormValues);
+    this.form.reset(this.initFormValues());
     this.formSubmitted = false;
     this.manageRecordsDialogs.hideCreateRecordDialog();
   }
