@@ -1,0 +1,113 @@
+<p-dialog header="Editar transacción" [modal]="true" [(visible)]="dialogVisible" (onHide)="hideDialog()"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+  [resizable]="false">
+  <ng-template #content>
+    <form [formGroup]="form" (ngSubmit)="saveRecord()" class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col gap-1">
+        <label for="title" class="text-sm font-medium text-zinc-700">Título</label>
+        <input pInputText type="text" id="title" placeholder="Título" formControlName="title"
+          [invalid]="isInvalid('title')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6"> @if (isInvalid('title')) { El título es requerido. } </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="description" class="text-sm font-medium text-zinc-700">Descripción</label>
+        <textarea pInputTextarea id="description" placeholder="Descripción" formControlName="description"
+          [invalid]="isInvalid('description')"></textarea>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('description')) { La descripción es requerida. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="amount" class="text-sm font-medium text-zinc-700">Monto</label>
+        <p-inputnumber inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"
+          [min]="0.01" id="amount" placeholder="Monto" formControlName="amount" [invalid]="isInvalid('amount')" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('amount')) { El monto es requerido y debe ser mayor a 0. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="date_time" class="text-sm font-medium text-zinc-700">Fecha y hora</label>
+        <p-datepicker [maxDate]="" id="date_time" formControlName="date" [showTime]="true" hourFormat="12"
+          placeholder="Seleccionar fecha y hora" [invalid]="isInvalid('date')" [showClear]="true" appendTo="body"
+          showIcon [iconDisplay]="'input'" fluid />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('date_time')) { La fecha y hora es requerida. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="account" class="text-sm font-medium text-zinc-700">Cuenta</label>
+        <p-select [options]="accounts()" formControlName="account" optionLabel="name" optionValue="id"
+          placeholder="Select an Account" appendTo="body" fluid class="w-full md:w-56" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6"> @if (isInvalid('account')) { La cuenta es requerida. } </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="typeRecord" class="text-sm font-medium text-zinc-700">Tipo de registro</label>
+        <p-select [options]="typeRecords" formControlName="typeRecord" placeholder="Seleccionar tipo de registro"
+          appendTo="body" fluid class="w-full md:w-56" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('typeRecord')) { El tipo de registro es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="category" class="text-sm font-medium text-zinc-700">Categoría</label>
+        <p-select [options]="categories()" formControlName="category" optionLabel="name" optionValue="id"
+          placeholder="Seleccionar categoría" appendTo="body" fluid class="w-full md:w-56" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('category')) { La categoría es requerida. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="paymentType" class="text-sm font-medium text-zinc-700">Tipo de pago</label>
+        <p-select [options]="paymentTypes" formControlName="paymentType" placeholder="Seleccionar tipo de pago"
+          appendTo="body" fluid class="w-full md:w-56" />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('paymentType')) { El tipo de pago es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="currency" class="text-sm font-medium text-zinc-700">Moneda</label>
+        <p-select [options]="currencies()" formControlName="currency" optionValue="code"
+          placeholder="Seleccionar moneda" appendTo="body" fluid class="w-full md:w-56">
+          <ng-template let-currency pTemplate="item">
+            {{ currency.code }} - {{ currency.name }}
+          </ng-template>
+          <ng-template let-currency pTemplate="selectedItem">
+            {{ currency.code }} - {{ currency.name }}
+          </ng-template>
+        </p-select>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6"> @if (isInvalid('currency')) { La moneda es requerida. } </span>
+        </p-message>
+      </div>
+    </form>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button label="Cancelar" severity="secondary" (click)="hideDialog()" />
+      <p-button severity="primary" label="Guardar" (click)="saveRecord()" />
+    </div>
+  </ng-template>
+</p-dialog>
