@@ -43,6 +43,8 @@ export interface CreateRecord {
   date_time?: string;
 }
 
+export interface UpdateRecord extends CreateRecord { }
+
 export interface TransactionFilters {
   searchTerm?: string;
   typeRecord?: 'expense' | 'income' | 'transfer' | '';
