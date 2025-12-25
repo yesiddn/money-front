@@ -64,7 +64,6 @@
       <div class="flex flex-col gap-1">
         <label for="date_time" class="text-sm font-medium text-zinc-700">Fecha y hora</label>
         <p-datepicker
-          [maxDate]=""
           id="date_time"
           formControlName="date"
           [showTime]="true"
@@ -75,7 +74,6 @@
           appendTo="body"
           showIcon
           [iconDisplay]="'input'"
-          size="small"
           fluid
         />
         <p-message severity="error" size="small" variant="simple">

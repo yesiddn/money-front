@@ -7,13 +7,16 @@ import { Message } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TextareaModule } from 'primeng/textarea';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePicker  } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { FinancialTransactions } from '@app/transactions/financial-transactions';
 import { Account, Record } from '@app/models/record.intereface';
 import { Category } from '@app/models/category.interface';
 import { Currency } from '@app/models/currency.interface';
 import { ManageRecords } from '../manage-records';
+import { ManageAccounts } from '@app/accounts/manage-accounts';
+import { ManageCategories } from '@app/categories/manage-categories';
+import { ManageCurrencies } from '@app/currencies/manage-currencies';
 
 @Component({
   selector: 'app-create-records',
@@ -25,7 +28,7 @@ import { ManageRecords } from '../manage-records';
     InputTextModule,
     InputNumberModule,
     TextareaModule,
-    DatePickerModule,
+    DatePicker,
     Select,
   ],
   templateUrl: './create-records.html',
@@ -33,8 +36,11 @@ import { ManageRecords } from '../manage-records';
 export class CreateRecords implements OnInit {
   private fb = inject(FormBuilder);
   private manageRecordsDialogs = inject(ManageRecordsDialogs);
-  private magageRecords = inject(ManageRecords);
+  private manageRecordsService = inject(ManageRecords);
   private financialTransactions = inject(FinancialTransactions);
+  private manageAccounts = inject(ManageAccounts);
+  private manageCategories = inject(ManageCategories);
+  private manageCurrencies = inject(ManageCurrencies);
 
   newRecord = output<Record>();
 
@@ -82,7 +88,7 @@ export class CreateRecords implements OnInit {
   }
 
   initializeUserFinancialData() {
-    this.financialTransactions.getAccounts().subscribe({
+    this.manageAccounts.getAccounts().subscribe({
       next: (accounts) => {
         this.accounts.set(accounts);
         this.form.patchValue({ account: accounts.length > 0 ? accounts[0].id : '' });
@@ -93,7 +99,7 @@ export class CreateRecords implements OnInit {
       },
     });
 
-    this.financialTransactions.getCategories().subscribe({
+    this.manageCategories.getCategories().subscribe({
       next: (categories) => {
         this.categories.set(categories);
       },
@@ -102,7 +108,7 @@ export class CreateRecords implements OnInit {
       },
     });
 
-    this.financialTransactions.getCurrencies().subscribe({
+    this.manageCurrencies.getCurrencies().subscribe({
       next: (currencies) => {
         this.currencies.set(currencies);
       },
@@ -150,10 +156,10 @@ export class CreateRecords implements OnInit {
       ...rest,
       account_id: account,
       category_id: category,
-      date_time: date ? date.toISOString() : undefined,
+      date_time: date ? date.toISOString() : null,
     };
 
-    this.magageRecords.createRecord(finalData).subscribe({
+    this.manageRecordsService.createRecord(finalData).subscribe({
       next: (newRecord) => {
         this.newRecord.emit(newRecord);
         this.hideDialog();
