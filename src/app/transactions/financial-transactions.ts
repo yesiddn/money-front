@@ -2,10 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { checkToken } from '@app/interceptors/token-interceptor';
-import { Account, RecordsResponse, TransactionFilters } from '@app/models/record.intereface';
+import { RecordsResponse, TransactionFilters } from '@app/models/record.intereface';
 import { map } from 'rxjs';
-import { Category } from '@app/models/category.interface';
-import { Currency } from '@app/models/currency.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,23 +38,11 @@ export class FinancialTransactions {
 
         response.results = response.results.map(record => ({
           ...record,
-          date_time: new Date(record.date_time)
+          date_time: record.date_time ? new Date(record.date_time) : record.date_time,
         }));
 
         return response;
       })
     );
-  }
-
-  getAccounts() {
-    return this.http.get<Account[]>(`${this.apiURL}/api/accounts/`, { context: checkToken() });
-  }
-
-  getCategories() {
-    return this.http.get<Category[]>(`${this.apiURL}/api/categories/`, { context: checkToken() });
-  }
-
-  getCurrencies() {
-    return this.http.get<Currency[]>(`${this.apiURL}/api/currencies/`, { context: checkToken() });
   }
 }
