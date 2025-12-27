@@ -6,13 +6,13 @@ import { redirectGuard } from './guards/redirect-guard';
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('@app/auth/login/login').then(m => m.Login),
+    loadComponent: () => import('@app/auth/login/login').then(m => m.Login),
     canActivate: [redirectGuard],
     title: 'Login'
   },
   {
     path: 'signup',
-    loadChildren: () => import('@app/auth/signup/signup').then(m => m.Signup),
+    loadComponent: () => import('@app/auth/signup/signup').then(m => m.Signup),
     canActivate: [redirectGuard],
     title: 'Signup'
   },
@@ -23,7 +23,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('@app/transactions/records/records').then(m => m.Records),
+        loadComponent: () => import('@app/transactions/records/records').then(m => m.Records),
         title: 'Historial de transacciones'
       }
     ]
