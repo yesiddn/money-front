@@ -1,21 +1,18 @@
 import { Routes } from '@angular/router';
-import { Signup } from './auth/signup/signup';
-import { Records } from './transactions/records/records';
 import { Layout } from './shared/components/layout/layout';
 import { authGuard } from './guards/auth-guard';
 import { redirectGuard } from './guards/redirect-guard';
-import { Login } from './auth/login/login';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: Login,
+    loadChildren: () => import('@app/auth/login/login').then(m => m.Login),
     canActivate: [redirectGuard],
     title: 'Login'
   },
   {
     path: 'signup',
-    component: Signup,
+    loadChildren: () => import('@app/auth/signup/signup').then(m => m.Signup),
     canActivate: [redirectGuard],
     title: 'Signup'
   },
@@ -26,7 +23,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: Records,
+        loadChildren: () => import('@app/transactions/records/records').then(m => m.Records),
         title: 'Historial de transacciones'
       }
     ]
