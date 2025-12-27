@@ -1,17 +1,16 @@
-import { Component, inject, OnInit, OnDestroy, Output, EventEmitter, output } from '@angular/core';
+import { Component, inject, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { Subscription } from 'rxjs';
+import { Select } from 'primeng/select';
+import { DatePicker } from 'primeng/datepicker';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { TransactionFilters } from '../../models/record.intereface';
 
 @Component({
   selector: 'app-record-filters',
-  imports: [ReactiveFormsModule, InputTextModule, SelectModule, DatePickerModule, IconFieldModule, InputIconModule],
+  imports: [ReactiveFormsModule, InputTextModule, Select, DatePicker, IconField, InputIcon],
   templateUrl: './record-filters.html',
 })
 export class RecordFilters implements OnInit {

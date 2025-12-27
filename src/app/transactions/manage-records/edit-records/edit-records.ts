@@ -1,8 +1,8 @@
 import { Component, effect, inject, input, OnInit, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { DialogModule } from 'primeng/dialog';
+import { DatePicker } from 'primeng/datepicker';
+import { Dialog } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
@@ -22,13 +22,13 @@ import { ManageCategories } from '@app/categories/manage-categories';
   selector: 'app-edit-records',
   imports: [
     ReactiveFormsModule,
-    DialogModule,
+    Dialog,
     ButtonModule,
     Message,
     InputTextModule,
     InputNumberModule,
     TextareaModule,
-    DatePickerModule,
+    DatePicker,
     Select,
   ],
   templateUrl: './edit-records.html',

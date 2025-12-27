@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, OnInit, output, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { ManageRecordsDialogs } from '@transactions/manage-records/manage-records-dialogs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Message } from 'primeng/message';
@@ -22,7 +22,7 @@ import { ManageCurrencies } from '@app/currencies/manage-currencies';
   selector: 'app-create-records',
   imports: [
     ReactiveFormsModule,
-    DialogModule,
+    Dialog,
     ButtonModule,
     Message,
     InputTextModule,
