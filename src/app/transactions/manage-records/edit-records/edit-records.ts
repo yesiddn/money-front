@@ -176,8 +176,6 @@ export class EditRecords implements OnInit {
       date_time: date ? date.toISOString() : null,
     };
 
-    console.log('Final data to update record:', finalData);
-
     const currentRecordId = this.currentRecord()?.id;
 
     if (!currentRecordId) {

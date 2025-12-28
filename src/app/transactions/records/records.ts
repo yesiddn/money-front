@@ -51,7 +51,6 @@ export class Records implements OnInit {
   }
 
   openEditRecordDialog(record: Record) {
-    console.log('Editing record:', record);
     this.recordToEdit.set(record);
     this.manageRecordsDialogs.showEditRecordDialog();
   }
