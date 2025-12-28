@@ -3,12 +3,12 @@
     Mis cuentas
   </h1>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
     <!-- card -->
     @for (account of accounts(); track account.id) {
     <div class="rounded-lg bg-primary-50 cursor-pointer overflow-hidden" (click)="openEditAccountDialog(account)">
       <div class="relative h-20 bg-primary-500">
-        <img class="absolute w-1/4 max-h-24 right-4 top-4" [src]="getImageUrl(account)" alt="Decorative image" />
+        <img class="absolute w-1/4 max-h-20 right-4 top-4" [src]="getImageUrl(account)" alt="Decorative image" />
       </div>
       <div class="flex flex-col gap-2 min-h-32 p-6">
         <div class="flex items-center w-full gap-4">
@@ -21,4 +21,7 @@
     </div>
     }
   </div>
+
+  <app-create-accounts (newAccount)="handleNewAccount($event)"></app-create-accounts>
+  <app-edit-accounts [currentAccount]="accountToEdit()" (updatedAccount)="handleUpdatedAccount($event)"></app-edit-accounts>
 </section>
