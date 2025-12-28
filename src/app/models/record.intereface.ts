@@ -5,6 +5,7 @@ export interface Account {
   name: string;
   description: string;
   currency: string;
+  balance: string;
   created_at: string;
   updated_at: string;
   user: string;
