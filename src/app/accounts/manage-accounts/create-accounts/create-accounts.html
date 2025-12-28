@@ -1,0 +1,79 @@
+<p-dialog
+  header="Crear cuenta"
+  [modal]="true"
+  [(visible)]="dialogVisible"
+  (onHide)="hideDialog()"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template #content>
+    <form [formGroup]="form" (ngSubmit)="saveAccount()" class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col gap-1">
+        <label for="name" class="text-sm font-medium text-zinc-700">Título</label>
+        <input
+          pInputText
+          type="text"
+          id="name"
+          placeholder="Título"
+          formControlName="name"
+          [invalid]="isInvalid('name')"
+        />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('name')) { El nombre de cuenta es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="balance" class="text-sm font-medium text-zinc-700">Monto</label>
+        <p-inputnumber
+          inputId="minmaxfraction"
+          mode="decimal"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="5"
+          id="balance"
+          placeholder="Monto"
+          formControlName="balance"
+          [invalid]="isInvalid('balance')"
+        />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('balance')) { El balance es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="currency" class="text-sm font-medium text-zinc-700">Moneda</label>
+        <p-autocomplete
+          [virtualScroll]="true"
+          [suggestions]="filteredCurrencies()"
+          formControlName="currency"
+          placeholder="Seleccionar moneda"
+          (completeMethod)="filterCurrencies($event)"
+          optionLabel="code"
+          appendTo="body"
+          [virtualScrollItemSize]="40"
+          [dropdown]="true"
+          showClear
+          fluid
+        >
+          <ng-template let-currency #item>
+            {{ currency.code }} - {{ currency.name }}
+          </ng-template>
+        </p-autocomplete>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6"> @if (isInvalid('currency')) { La moneda es requerida. } </span>
+        </p-message>
+      </div>
+    </form>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button label="Cancelar" severity="secondary" (click)="hideDialog()" />
+      <p-button severity="primary" label="Guardar" (click)="saveAccount()" />
+    </div>
+  </ng-template>
+</p-dialog>
