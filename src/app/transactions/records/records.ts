@@ -9,6 +9,7 @@ import { CreateRecords } from "../manage-records/create-records/create-records";
 import { EditRecords } from '../manage-records/edit-records/edit-records';
 import { ManageRecordsDialogs } from '../manage-records/manage-records-dialogs';
 import { ManageRecords } from '../manage-records/manage-records';
+import { NavbarService } from '@app/shared/components/navbar/navbar-service';
 
 @Component({
   selector: 'app-records',
@@ -18,6 +19,7 @@ import { ManageRecords } from '../manage-records/manage-records';
 export class Records implements OnInit {
   private manageRecordsDialogs = inject(ManageRecordsDialogs);
   private manageRecords = inject(ManageRecords);
+  private navbarService = inject(NavbarService);
   financialTransactions = inject(FinancialTransactions);
   messageService = inject(MessageService);
 
@@ -27,6 +29,7 @@ export class Records implements OnInit {
   recordToEdit = signal<Record | null>(null);
 
   ngOnInit() {
+    this.navbarService.setCurrentMenu('dashboard');
     this.getTransactionIcon();
   }
 
@@ -62,7 +65,7 @@ export class Records implements OnInit {
     const allRecords = this.transactions().map(record =>
       record.id === updatedRecord.id ? updatedRecord : record
     );
-    
+
     const orderedRecords = this.manageRecords.orderRecordsByDate(allRecords);
     this.transactions.set(orderedRecords);
     this.recordToEdit.set(null);
