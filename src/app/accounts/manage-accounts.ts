@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { checkToken } from '@app/interceptors/token-interceptor';
-import { Account } from '@app/models/record.intereface';
+import { Account, CreateAccount } from '@app/models/account.interface';
 import { environment } from '@env/environment';
 import { map, Observable, of, shareReplay, tap } from 'rxjs';
 
@@ -47,5 +47,33 @@ export class ManageAccounts {
     this.accounts.set([]);
     this.accountsRequest$ = null;
     return this.getAccounts();
+  }
+
+  createAccount(accountData: CreateAccount) {
+    return this.http
+      .post<Account>(`${this.apiURL}/api/accounts/`, accountData, {
+        context: checkToken(),
+      })
+      .pipe(
+        map((newAccount: Account) => {
+          // Actualizar el estado de las cuentas con la nueva cuenta creada
+          this.accounts.set([...this.accounts(), newAccount]);
+          return newAccount;
+        })
+      );
+  }
+
+  updateAccount(accountId: number, accountData: CreateAccount) {
+    return this.http
+      .put<Account>(`${this.apiURL}/api/accounts/${accountId}/`, accountData, { context: checkToken() })
+      .pipe(
+        map((updatedAccount: Account) => {
+          // Actualizar el estado de las cuentas con la cuenta actualizada
+          this.accounts.update(accounts => accounts.map(account =>
+            account.id === updatedAccount.id ? updatedAccount : account
+          ));
+          return updatedAccount;
+        })
+      );
   }
 }
