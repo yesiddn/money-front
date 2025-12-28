@@ -10,13 +10,14 @@ import { TextareaModule } from 'primeng/textarea';
 import { DatePicker  } from 'primeng/datepicker';
 import { Select } from 'primeng/select';
 import { FinancialTransactions } from '@app/transactions/financial-transactions';
-import { Account, Record } from '@app/models/record.intereface';
+import { Record } from '@app/models/record.intereface';
 import { Category } from '@app/models/category.interface';
 import { Currency } from '@app/models/currency.interface';
 import { ManageRecords } from '../manage-records';
 import { ManageAccounts } from '@app/accounts/manage-accounts';
 import { ManageCategories } from '@app/categories/manage-categories';
 import { ManageCurrencies } from '@app/currencies/manage-currencies';
+import { Account } from '@app/models/account.interface';
 
 @Component({
   selector: 'app-create-records',

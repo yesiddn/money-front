@@ -11,12 +11,13 @@ import { TextareaModule } from 'primeng/textarea';
 import { ManageRecordsDialogs } from '../manage-records-dialogs';
 import { ManageRecords } from '../manage-records';
 import { FinancialTransactions } from '@app/transactions/financial-transactions';
-import { Account, Record } from '@app/models/record.intereface';
+import { Record } from '@app/models/record.intereface';
 import { Category } from '@app/models/category.interface';
 import { Currency } from '@app/models/currency.interface';
 import { ManageAccounts } from '@app/accounts/manage-accounts';
 import { ManageCurrencies } from '@app/currencies/manage-currencies';
 import { ManageCategories } from '@app/categories/manage-categories';
+import { Account } from '@app/models/account.interface';
 
 @Component({
   selector: 'app-edit-records',

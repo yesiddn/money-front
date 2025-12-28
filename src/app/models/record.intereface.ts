@@ -1,15 +1,5 @@
+import { Account } from "./account.interface";
 import { Category } from "./category.interface";
-
-export interface Account {
-  id: number;
-  name: string;
-  description: string;
-  currency: string;
-  balance: string;
-  created_at: string;
-  updated_at: string;
-  user: string;
-}
 
 export interface RecordsResponse {
   count: number;
