@@ -25,6 +25,11 @@ export const routes: Routes = [
         path: '',
         loadComponent: () => import('@app/transactions/records/records').then(m => m.Records),
         title: 'Historial de transacciones'
+      },
+      {
+        path: 'accounts',
+        loadComponent: () => import('@app/accounts/accounts/accounts').then(m => m.Accounts),
+        title: 'Cuentas'
       }
     ]
   }
