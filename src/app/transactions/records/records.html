@@ -18,18 +18,55 @@
         <div class="flex flex-col w-full gap-4 md:flex-col-reverse">
           <!-- tags -->
           <div class="flex items-center gap-4 mb-2 text-sm font-bold">
-            <div class="flex justify-center items-center gap-2 px-4 py-2 bg-primary-300 rounded-full">
-              <span>
+            @if (transaction.account) {
+              <div class="flex justify-center items-center gap-2 px-4 py-2 bg-primary-300 rounded-full">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                      <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M2 9a4 4 0 0 0 4-4v0m12 14a4 4 0 0 1 4-4v0" />
+                    </g>
+                  </svg>
+                </span>
+                <span>{{ transaction.account.name }}</span>
+              </div>
+            }
+
+            @if (transaction.typeRecord === 'transfer' && transaction.to_account && transaction.from_account) {
+              <div class="flex justify-center items-center gap-2 px-4 py-2 bg-primary-300 rounded-full">
+                <div class="flex justify-center items-center gap-2">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M2 9a4 4 0 0 0 4-4v0m12 14a4 4 0 0 1 4-4v0" />
+                      </g>
+                    </svg>
+                  </span>
+                  <span>{{ transaction.from_account.name }}</span>
+                </div>
+
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                    <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M2 9a4 4 0 0 0 4-4v0m12 14a4 4 0 0 1 4-4v0" />
-                  </g>
+                  <path fill="currentColor"
+                    d="m14.475 12l-7.35-7.35q-.375-.375-.363-.888t.388-.887t.888-.375t.887.375l7.675 7.7q.3.3.45.675t.15.75t-.15.75t-.45.675l-7.7 7.7q-.375.375-.875.363T7.15 21.1t-.375-.888t.375-.887z" />
                 </svg>
-              </span>
-              <span>{{ transaction.account.name }}</span>
-            </div>
+
+                <div class="flex justify-center items-center gap-2">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <path d="M2 7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M2 9a4 4 0 0 0 4-4v0m12 14a4 4 0 0 1 4-4v0" />
+                      </g>
+                    </svg>
+                  </span>
+                  <span>{{ transaction.to_account.name }}</span>
+                </div>
+              </div>
+            }
 
             @if (transaction.category) {
             <div class="flex justify-center items-center gap-2 px-4 py-2 bg-violet-300 rounded-full">
