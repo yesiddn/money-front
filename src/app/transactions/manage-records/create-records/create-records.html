@@ -62,60 +62,72 @@
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="date_time" class="text-sm font-medium text-zinc-700">Fecha y hora</label>
-        <p-datepicker
-          id="date_time"
-          formControlName="date"
-          [showTime]="true"
-          hourFormat="12"
-          placeholder="Seleccionar fecha y hora"
-          [invalid]="isInvalid('date')"
-          [showClear]="true"
-          appendTo="body"
-          showIcon
-          [iconDisplay]="'input'"
-          fluid
-        />
-        <p-message severity="error" size="small" variant="simple">
-          <span class="block h-6">
-            @if (isInvalid('date_time')) { La fecha y hora es requerida. }
-          </span>
-        </p-message>
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <label for="account" class="text-sm font-medium text-zinc-700">Cuenta</label>
-        <p-select
-          [options]="accounts()"
-          formControlName="account"
-          optionLabel="name"
-          optionValue="id"
-          placeholder="Select an Account"
-          appendTo="body"
-          fluid
-          class="w-full md:w-56"
-        />
-        <p-message severity="error" size="small" variant="simple">
-          <span class="block h-6"> @if (isInvalid('account')) { La cuenta es requerida. } </span>
-        </p-message>
-      </div>
-
-      <div class="flex flex-col gap-1">
         <label for="typeRecord" class="text-sm font-medium text-zinc-700">Tipo de registro</label>
-        <p-select
-          [options]="typeRecords"
-          formControlName="typeRecord"
-          placeholder="Seleccionar tipo de registro"
-          appendTo="body"
-          fluid
-          class="w-full md:w-56"
-        />
+        <p-select [options]="typeRecords" formControlName="typeRecord" placeholder="Seleccionar tipo de registro"
+          appendTo="body" fluid class="w-full md:w-56" />
         <p-message severity="error" size="small" variant="simple">
           <span class="block h-6">
             @if (isInvalid('typeRecord')) { El tipo de registro es requerido. }
           </span>
         </p-message>
       </div>
+
+      @if (form.get('typeRecord')?.value !== 'transfer') {
+        <div class="flex flex-col gap-1">
+          <label for="account" class="text-sm font-medium text-zinc-700">Cuenta</label>
+          <p-select
+            [options]="accounts()"
+            formControlName="account"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Select an Account"
+            appendTo="body"
+            fluid
+            class="w-full md:w-56"
+          />
+          <p-message severity="error" size="small" variant="simple">
+            <span class="block h-6"> @if (isInvalid('account')) { La cuenta es requerida. } </span>
+          </p-message>
+        </div>
+      }
+
+      @if (form.get('typeRecord')?.value === 'transfer') {
+        <div class="flex flex-col gap-1">
+          <label for="from_account" class="text-sm font-medium text-zinc-700">Cuenta de origen</label>
+          <p-select
+            [options]="accounts()"
+            (onChange)="onFromAccountChange($event.value)"
+            formControlName="from_account"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Seleccionar cuenta de origen"
+            appendTo="body"
+            fluid
+            class="w-full md:w-56"
+          />
+          <p-message severity="error" size="small" variant="simple">
+            <span class="block h-6"> @if (isInvalid('from_account')) { La cuenta de origen es requerida. } </span>
+          </p-message>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="to_account" class="text-sm font-medium text-zinc-700">Cuenta de destino</label>
+          <p-select
+            [options]="accounts()"
+            (onChange)="onToAccountChange($event.value)"
+            formControlName="to_account"
+            optionLabel="name"
+            optionValue="id"
+            placeholder="Seleccionar cuenta de destino"
+            appendTo="body"
+            fluid
+            class="w-full md:w-56"
+          />
+          <p-message severity="error" size="small" variant="simple">
+            <span class="block h-6"> @if (isInvalid('to_account')) { {{getErrorMessage('to_account')}} } </span>
+          </p-message>
+        </div>
+      }
 
       <div class="flex flex-col gap-1">
         <label for="category" class="text-sm font-medium text-zinc-700">Categoría</label>
@@ -149,6 +161,18 @@
         <p-message severity="error" size="small" variant="simple">
           <span class="block h-6">
             @if (isInvalid('paymentType')) { El tipo de pago es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="date_time" class="text-sm font-medium text-zinc-700">Fecha y hora</label>
+        <p-datepicker id="date_time" formControlName="date" [showTime]="true" hourFormat="12"
+          placeholder="Seleccionar fecha y hora" [invalid]="isInvalid('date')" [showClear]="true" appendTo="body" showIcon
+          [iconDisplay]="'input'" fluid />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('date_time')) { La fecha y hora es requerida. }
           </span>
         </p-message>
       </div>
