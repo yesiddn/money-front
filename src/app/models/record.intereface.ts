@@ -12,7 +12,9 @@ export interface Record {
   title: string;
   description: string;
   amount: string;
-  account: Account;
+  account?: Account;
+  from_account?: Account;
+  to_account?: Account;
   typeRecord: 'expense' | 'income' | 'transfer' | 'investment';
   category: Category;
   paymentType: 'cash' | 'transfer' | 'card';
@@ -26,7 +28,9 @@ export interface CreateRecord {
   title: string;
   description?: string;
   amount: string;
-  account_id: number;
+  account_id?: number;
+  from_account_id?: number;
+  to_account_id?: number;
   typeRecord: 'expense' | 'income' | 'transfer' | 'investment';
   category_id?: number;
   paymentType: 'cash' | 'transfer' | 'card';
