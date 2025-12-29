@@ -75,7 +75,9 @@ export class EditRecords implements OnInit {
           title: record.title,
           description: record.description || '',
           amount: parseFloat(record.amount),
-          account: record.account.id,
+          account: record.account ? record.account.id : '',
+          from_account: record.from_account ? record.from_account.id : '',
+          to_account: record.to_account ? record.to_account.id : '',
           typeRecord: record.typeRecord,
           category: record.category ? record.category.id : '',
           paymentType: record.paymentType,
@@ -141,7 +143,9 @@ export class EditRecords implements OnInit {
       title: ['', Validators.required],
       description: [''],
       amount: [null, [Validators.required, Validators.min(0.01)]],
-      account: ['', Validators.required],
+      account: [''],
+      from_account: [''],
+      to_account: [''],
       typeRecord: [this.typeRecords[0].value, Validators.required],
       category: [''],
       paymentType: [this.paymentTypes[0].value, Validators.required],
@@ -168,14 +172,44 @@ export class EditRecords implements OnInit {
     this.formSubmitted = true;
 
     const recordData = this.form.getRawValue();
-    const { account, category, date, ...rest } = recordData;
+    const { account, from_account, to_account, category, date, ...rest } = recordData;
+
+    if (recordData.typeRecord === 'transfer') {
+      if (!from_account || !to_account) {
+        this.form.get('from_account')?.setErrors({ required: true });
+        this.form.get('to_account')?.setErrors({ required: true });
+        this.formSubmitted = false;
+        return;
+      }
+
+      if (from_account === to_account) {
+        this.form.get('to_account')?.setErrors({ sameAccount: true });
+        this.formSubmitted = false;
+        return;
+      }
+    }
+    else if (!account) {
+      this.form.get('account')?.setErrors({ required: true });
+      this.formSubmitted = false;
+      return;
+    }
 
     const finalData = {
       ...rest,
-      account_id: account,
       category_id: category,
       date_time: date ? date.toISOString() : null,
     };
+
+    if (recordData.typeRecord === 'transfer') {
+      Object.assign(finalData, {
+        from_account_id: from_account,
+        to_account_id: to_account,
+      });
+    } else {
+      Object.assign(finalData, {
+        account_id: account,
+      });
+    }
 
     const currentRecordId = this.currentRecord()?.id;
 
@@ -198,9 +232,42 @@ export class EditRecords implements OnInit {
     });
   }
 
+  onFromAccountChange(fromAccountId: number) {
+    const selectedAccount = this.accounts().find(account => account.id === fromAccountId);
+
+    if (this.form.get('to_account')?.value === fromAccountId) {
+      this.form.get('to_account')?.setErrors({ sameAccount: true });
+    } else {
+      this.form.get('to_account')?.setErrors(null);
+    }
+
+    if (selectedAccount) {
+      this.form.patchValue({ currency: selectedAccount.currency });
+    }
+  }
+
+  onToAccountChange(toAccountId: number) {
+    if (this.form.get('from_account')?.value === toAccountId) {
+      this.form.get('to_account')?.setErrors({ sameAccount: true });
+    } else {
+      this.form.get('to_account')?.setErrors(null);
+    }
+  }
+
   isInvalid(controlName: string) {
     const control = this.form.get(controlName);
     return control?.invalid && (control.touched || this.formSubmitted);
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (control?.hasError('required')) {
+      return 'Este campo es requerido.';
+    }
+    if (controlName === 'to_account' && control?.hasError('sameAccount')) {
+      return 'La cuenta de destino no puede ser la misma que la de origen.';
+    }
+    return 'Campo inválido.';
   }
 
   hideDialog() {
