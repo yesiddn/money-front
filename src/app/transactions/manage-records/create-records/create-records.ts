@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnInit, output, signal } from '@angular/core';
+import { Component, computed, effect, HostListener, inject, OnInit, output, signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { ManageRecordsDialogs } from '@transactions/manage-records/manage-records-dialogs';
@@ -48,6 +48,7 @@ export class CreateRecords implements OnInit {
   accounts = signal<Account[]>([]);
   categories = signal<Category[]>([]);
   currencies = signal<Currency[]>([]);
+  isMobile = signal(window.innerWidth <= 575);
   dialogVisible = false;
   form!: FormGroup;
   formSubmitted = false;
@@ -62,6 +63,11 @@ export class CreateRecords implements OnInit {
     { label: 'Transferencia', value: 'transfer' },
     { label: 'Tarjeta', value: 'card' },
   ];
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isMobile.set(window.innerWidth <= 575);
+  }
 
   constructor() {
     effect(() => {

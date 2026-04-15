@@ -1,0 +1,53 @@
+<p-dialog
+  header="Crear categoría"
+  [modal]="true"
+  [(visible)]="dialogVisible"
+  (onHide)="hideDialog()"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template #content>
+    <form [formGroup]="form" (ngSubmit)="saveCategory()" class="flex flex-col gap-4 w-full">
+      <div class="flex flex-col gap-1">
+        <label for="name" class="text-sm font-medium text-zinc-700">Nombre</label>
+        <input
+          pInputText
+          type="text"
+          id="name"
+          placeholder="Nombre"
+          formControlName="name"
+          [invalid]="isInvalid('name')"
+        />
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('name')) { El nombre de la categoría es requerido. }
+          </span>
+        </p-message>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label for="description" class="text-sm font-medium text-zinc-700">Descripción</label>
+        <textarea
+          pTextarea
+          id="description"
+          rows="3"
+          placeholder="Descripción"
+          formControlName="description"
+          [invalid]="isInvalid('description')"
+        ></textarea>
+        <p-message severity="error" size="small" variant="simple">
+          <span class="block h-6">
+            @if (isInvalid('description')) { La descripción es requerida. }
+          </span>
+        </p-message>
+      </div>
+    </form>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button label="Cancelar" severity="secondary" (click)="hideDialog()" />
+      <p-button severity="primary" label="Guardar" (click)="saveCategory()" />
+    </div>
+  </ng-template>
+</p-dialog>

@@ -30,6 +30,11 @@ export const routes: Routes = [
         path: 'accounts',
         loadComponent: () => import('@app/accounts/accounts/accounts').then(m => m.Accounts),
         title: 'Cuentas'
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('@app/categories/categories/categories').then(m => m.Categories),
+        title: 'Categorías'
       }
     ]
   }
