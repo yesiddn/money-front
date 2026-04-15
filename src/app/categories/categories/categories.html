@@ -1,0 +1,25 @@
+<section class="mt-8">
+  <h1 class="text-2xl font-bold">Mis categorías</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+    @for (category of categories(); track category.id) {
+      <div
+        class="rounded-lg bg-primary-50 cursor-pointer p-6 flex items-center gap-4 min-h-24 hover:bg-primary-100 transition-colors"
+        (click)="openEditCategoryDialog(category)"
+      >
+        <app-category-icon size="40px" class="text-primary-500 shrink-0"></app-category-icon>
+        <div class="flex flex-col min-w-0 flex-1">
+          <h2 class="text-lg font-bold truncate">{{ category.name }}</h2>
+          <p class="text-sm text-zinc-600 truncate">{{ category.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <app-create-categories (newCategory)="handleNewCategory($event)"></app-create-categories>
+  <app-edit-categories
+    [currentCategory]="categoryToEdit()"
+    (updatedCategory)="handleUpdatedCategory($event)"
+    (deletedCategory)="handleDeletedCategory($event)"
+  ></app-edit-categories>
+</section>
