@@ -28,4 +28,29 @@ export class ManageDialogs {
   hideEditAccountDialog() {
     this.editAccountDialogVisible.update(() => false);
   }
+
+  // Categories Dialogs
+  private createCategoryDialogVisible = signal(false);
+  private editCategoryDialogVisible = signal(false);
+
+  // Categories Dialog States
+  createCategoryDialogVisibleState = this.createCategoryDialogVisible.asReadonly();
+  editCategoryDialogVisibleState = this.editCategoryDialogVisible.asReadonly();
+
+  // Categories Dialog Methods
+  showCreateCategoryDialog() {
+    this.createCategoryDialogVisible.update(() => true);
+  }
+
+  hideCreateCategoryDialog() {
+    this.createCategoryDialogVisible.update(() => false);
+  }
+
+  showEditCategoryDialog() {
+    this.editCategoryDialogVisible.update(() => true);
+  }
+
+  hideEditCategoryDialog() {
+    this.editCategoryDialogVisible.update(() => false);
+  }
 }

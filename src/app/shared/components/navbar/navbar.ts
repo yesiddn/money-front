@@ -22,6 +22,11 @@ export class Navbar {
       return;
     }
 
+    if (this.menuSelected() === 'categories') {
+      this.manageDialogs.showCreateCategoryDialog();
+      return;
+    }
+
     this.manageRecordsDialogs.showCreateRecordDialog();
   }
 }
