@@ -104,7 +104,7 @@
         <label for="date_time" class="text-sm font-medium text-zinc-700">Fecha y hora</label>
         <p-datepicker id="date_time" formControlName="date" [showTime]="true" hourFormat="12"
           placeholder="Seleccionar fecha y hora" [invalid]="isInvalid('date')" [showClear]="true" appendTo="body" showIcon
-          [iconDisplay]="'input'" fluid />
+          [iconDisplay]="'input'" fluid [touchUI]="isMobile()" />
         <p-message severity="error" size="small" variant="simple">
           <span class="block h-6">
             @if (isInvalid('date_time')) { La fecha y hora es requerida. }
